@@ -1,4 +1,4 @@
-cp mysql.rep /etc/yum.repos.d/mysql.repo
+cp mysql.repo /etc/yum.repos.d/mysql.repo
 
 dnf module disable mysql -y
 
