@@ -1,39 +1,39 @@
 
-echo ">>>>>> Creating Catalogue Service <<<<<<<<"
+echo -e "\e[32m>>>>>> Creating Catalogue Service <<<<<<<<\e[0m"
 cp catalogue.service /etc/systemd/system/catalogue.service
 
-echo ">>>>>> Creating Mongo Repo <<<<<<<<"
+echo -e "\e[32m>>>>>> Creating Mongo Repo <<<<<<<<\e[0m"
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 
-echo ">>>>>> Install NodeJS <<<<<<<<"
+echo -e "\e[32m>>>>>> Install NodeJS <<<<<<<<\e[0m"
 dnf module disable nodejs -y
 dnf module enable nodejs:18 -y
 dnf install nodejs -y
 
-echo ">>>>>> Creating App User<<<<<<<<"
+echo -e "\e[32m>>>>>> Creating App User<<<<<<<<\e[0m"
 useradd roboshop
 
-echo ">>>>>> Creating App Directory <<<<<<<<"
+echo -e "\e[32m>>>>>> Creating App Directory <<<<<<<<\e[0m"
 mkdir /app
 
-echo ">>>>>> Download Application Content<<<<<<<<"
+echo -e "\e[32m>>>>>> Download Application Content<<<<<<<<\e[0m"
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip
 
-echo ">>>>>> Extract Application content <<<<<<<<"
+echo -e "\e[32m>>>>>> Extract Application content <<<<<<<<\e[0m"
 cd /app
 unzip /tmp/catalogue.zip
 
-echo ">>>>>>Installing NodeJS dependencies <<<<<<<<"
+echo -e "\e[32m>>>>>>Installing NodeJS dependencies <<<<<<<<\e[0m"
 cd /app
 npm install
 
-echo ">>>>>> Installing Mongo Client<<<<<<<<"
+echo -e "\e[32m>>>>>> Installing Mongo Client<<<<<<<<\e[0m"
 dnf install mongodb-org-shell -y
 
-echo ">>>>>> Loading Schema <<<<<<<<"
+echo -e "\e[32m>>>>>> Loading Schema <<<<<<<<\e[0m"
 mongo --host mongodb.rgdevops159.online </app/schema/catalogue.js
 
-echo ">>>>>> Starting service <<<<<<<<"
+echo -e "\e[32m>>>>>> Starting service <<<<<<<<\e[0m"
 systemctl daemon-reload
 systemctl enable catalogue
 systemctl restart catalogue
