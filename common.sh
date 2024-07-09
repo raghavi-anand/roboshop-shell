@@ -45,3 +45,24 @@ systemctl enable ${component} &>>log
 systemctl restart ${component} &>>log
 
 }
+
+func_java(){
+  cp ${component}.service /etc/systemd/system/${component}.service
+
+  dnf install maven -y
+  useradd roboshop
+  mkdir /app
+  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+  cd /app
+  unzip /tmp/${component}.zip
+  cd /app
+  mvn clean package
+  mv target/shipping-1.0.jar shipping.jar
+
+  dnf install mysql -y
+  mysql -h mysql.rgdevops159.online -uroot -pRoboShop@1 < /app/schema/${component}.sql
+
+  systemctl daemon-reload
+  systemctl enable ${component}
+  systemctl restart ${component}
+}
