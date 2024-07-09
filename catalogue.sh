@@ -13,6 +13,9 @@ dnf install nodejs -y
 echo -e "\e[32m>>>>>> Creating App User<<<<<<<<\e[0m"
 useradd roboshop
 
+echo -e "\e[32m>>>>>> Removing existing App Directory <<<<<<<<\e[0m"
+rm -rf /app
+
 echo -e "\e[32m>>>>>> Creating App Directory <<<<<<<<\e[0m"
 mkdir /app
 
