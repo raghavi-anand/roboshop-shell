@@ -52,7 +52,7 @@ dnf install mongodb-org-shell -y &>>log
 echo -e "\e[32m>>>>>> Loading Schema <<<<<<<<\e[0m"
 mongo --host mongodb.rgdevops159.online </app/schema/${component}.js &>>log
 
-fnc_systemd
+func_systemd
 
 }
 
@@ -74,5 +74,5 @@ func_java(){
   echo -e "\e[32m>>>>>> Load Schema<<<<<<<<\e[0m"
   mysql -h mysql.rgdevops159.online -uroot -pRoboShop@1 < /app/schema/${component}.sql
 
-  fnc_systemd
+  func_systemd
 }
