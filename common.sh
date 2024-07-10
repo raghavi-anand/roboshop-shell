@@ -59,20 +59,20 @@ func_systemd
 func_java(){
 
   echo -e "\e[32m>>>>>> Install Maven <<<<<<<<\e[0m"
-  dnf install maven -y
+  dnf install maven -y &>>$log
 
   func_apppreq
 
   echo -e "\e[32m>>>>>> Build shipping Service <<<<<<<<\e[0m"
-  cd /app
-  mvn clean package
-  mv target/shipping-1.0.jar shipping.jar
+  cd /app &>>$log
+  mvn clean package &>>$log
+  mv target/shipping-1.0.jar shipping.jar &>>$log
 
   echo -e "\e[32m>>>>>> Install mysql client <<<<<<<<\e[0m"
-  dnf install mysql -y
+  dnf install mysql -y &>>$log
 
   echo -e "\e[32m>>>>>> Load Schema<<<<<<<<\e[0m"
-  mysql -h mysql.rgdevops159.online -uroot -pRoboShop@1 < /app/schema/${component}.sql
+  mysql -h mysql.rgdevops159.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>>$log
 
   func_systemd
 }
