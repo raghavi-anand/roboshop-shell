@@ -1,6 +1,6 @@
 log=/tmp/roboshop.log
 
-fun_apppreq(){
+func_apppreq(){
   echo -e "\e[32m>>>>>> Creating ${component} Service <<<<<<<<\e[0m"
   cp ${component}.service /etc/systemd/system/${component}.service &>>$log
 
@@ -33,7 +33,7 @@ func_nodejs(){
 
 
 echo -e "\e[32m>>>>>> Creating Mongo Repo <<<<<<<<\e[0m"
-cp mongo.repo /etc/yum.repos.d/mongo.repo &>>log
+cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$log
 
 echo -e "\e[32m>>>>>> Install NodeJS <<<<<<<<\e[0m"
 dnf module disable nodejs -y &>>$log
