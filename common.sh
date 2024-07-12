@@ -73,7 +73,7 @@ func_systemd
 func_java(){
 
   echo -e "\e[32m>>>>>> Install Maven <<<<<<<<\e[0m"
-  dnf install maven -y &>>$log
+  dnf install maven -y
 
   func_apppreq
 
