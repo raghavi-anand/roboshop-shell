@@ -115,6 +115,8 @@ func_python(){
 
   func_apppreq
 
+  sed -i "/s/rabbitmq_app_passwd/${rabbitmq_app_passwd}/" /etc/systemd/system/${component}.service
+
   echo -e "\e[32m>>>>>> Install Python dependencies <<<<<<<<\e[0m"
   cd /app
   pip3.6 install -r requirements.txt &>>$log
