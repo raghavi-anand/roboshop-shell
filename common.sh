@@ -14,7 +14,10 @@ func_apppreq(){
   func_exit_status
 
   echo -e "\e[32m>>>>>> Creating App User<<<<<<<<\e[0m"
-  useradd roboshop &>>$log
+  id roboshop
+  if [ $? -ne 0]; then
+   useradd roboshop &>>$log
+  fi
   func_exit_status
 
   echo -e "\e[32m>>>>>> Removing existing App Directory <<<<<<<<\e[0m"
