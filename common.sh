@@ -17,7 +17,6 @@ func_apppreq(){
   id roboshop &>>$log
   if [ $? -ne 0 ]; then
    useradd roboshop &>>$log
-   exit 1
   fi
   func_exit_status
 
