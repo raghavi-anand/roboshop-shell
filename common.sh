@@ -29,6 +29,24 @@ func_systemd(){
   systemctl restart ${component} &>>$log
 }
 
+func_schema_setup(){
+  if ["${schema_type}"=="mongodb"]; then
+    echo -e "\e[32m>>>>>> Installing Mongo Client<<<<<<<<\e[0m"
+    dnf install mongodb-org-shell -y &>>$log
+
+    echo -e "\e[32m>>>>>> Loading Schema <<<<<<<<\e[0m"
+    mongo --host mongodb.rgdevops159.online </app/schema/${component}.js &>>$log
+  fi
+
+  if ["${schema_type}"=="mysql"]; then
+    echo -e "\e[32m>>>>>> Install mysql client <<<<<<<<\e[0m"
+      dnf install mysql -y &>>$log
+
+      echo -e "\e[32m>>>>>> Load Schema<<<<<<<<\e[0m"
+      mysql -h mysql.rgdevops159.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>>$log
+  fi
+}
+
 func_nodejs(){
 
 
@@ -46,11 +64,7 @@ echo -e "\e[32m>>>>>>Installing NodeJS dependencies <<<<<<<<\e[0m"
 cd /app &>>$log
 npm install &>>$log
 
-echo -e "\e[32m>>>>>> Installing Mongo Client<<<<<<<<\e[0m"
-dnf install mongodb-org-shell -y &>>$log
-
-echo -e "\e[32m>>>>>> Loading Schema <<<<<<<<\e[0m"
-mongo --host mongodb.rgdevops159.online </app/schema/${component}.js &>>$log
+func_schema_setup
 
 func_systemd
 
@@ -68,11 +82,7 @@ func_java(){
   mvn clean package &>>$log
   mv target/shipping-1.0.jar shipping.jar &>>$log
 
-  echo -e "\e[32m>>>>>> Install mysql client <<<<<<<<\e[0m"
-  dnf install mysql -y &>>$log
-
-  echo -e "\e[32m>>>>>> Load Schema<<<<<<<<\e[0m"
-  mysql -h mysql.rgdevops159.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>>$log
+  func_schema_setup
 
   func_systemd
 }
