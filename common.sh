@@ -30,7 +30,7 @@ func_systemd(){
 }
 
 func_schema_setup(){
-  if ["${schema_type}"=="mongodb"]; then
+  if [ "${schema_type}" == "mongodb" ]; then
     echo -e "\e[32m>>>>>> Installing Mongo Client<<<<<<<<\e[0m"
     dnf install mongodb-org-shell -y &>>$log
 
@@ -38,7 +38,7 @@ func_schema_setup(){
     mongo --host mongodb.rgdevops159.online </app/schema/${component}.js &>>$log
   fi
 
-  if ["${schema_type}"=="mysql"]; then
+  if [ "${schema_type}" == "mysql" ]; then
     echo -e "\e[32m>>>>>> Install mysql client <<<<<<<<\e[0m"
       dnf install mysql -y &>>$log
 
